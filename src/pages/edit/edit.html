@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Edit Profile
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="editProfileForm.form.valid && onSubmit($event)" #editProfileForm="ngForm">
+
+    <img [src]="_DomSanitizer.bypassSecurityTrustUrl('data:image/png;base64,'+model.profilePicture)" />
+
+    <ion-item>
+      <ion-label floating>First Name</ion-label>
+      <ion-input type="text" required [(ngModel)]="model.firstName" #firstName="ngModel" name="firstName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input type="text" required [(ngModel)]="model.lastName" #lastName="ngModel" name="lastName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Address Line 1</ion-label>
+      <ion-input type="text" required [(ngModel)]="model.addressLine1" #addressLine1="ngModel" name="addressLine1"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Address Line 2</ion-label>
+      <ion-input type="text" required [(ngModel)]="model.addressLine2" #addressLine1="ngModel" name="addressLine2"></ion-input>
+    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>City</ion-label>
+            <ion-input type="text" required [(ngModel)]="model.city" #city="ngModel" name="city"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-3>
+          <ion-item>
+            <ion-label floating>State</ion-label>
+            <ion-input type="text" required [(ngModel)]="model.state" #state="ngModel" name="state"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-3>
+          <ion-item>
+            <ion-label floating>Zip</ion-label>
+            <ion-input type="text" required [(ngModel)]="model.zipCode" #zipCode="ngModel" name="zipCode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-item>
+      <ion-label floating>Phone Number</ion-label>
+      <ion-input type="text" required [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" name="phoneNumber"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Email Address</ion-label>
+      <ion-input type="email" required [(ngModel)]="model.emailAddress" #email="ngModel" name="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Birthday</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="humanDate" required #birthdate="ngModel" name="birthdate"></ion-datetime>
+    </ion-item>
+
+
+
+    <p></p>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button block color="danger" (click)="onCancel($event)">Cancel</button>
+        </ion-col>
+        <ion-col col-6>
+          <button ion-button block type="submit">Save My Info</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-footer>
+  <button ion-button block clear (click)="showTerms($event)">Terms and Conditions</button>
+</ion-footer>
