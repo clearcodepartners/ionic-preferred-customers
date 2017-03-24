@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.preferredcustomer157556" version="0.0.1" xmlns="http://www.w3.org/ns/widgets">
+<widget id="com.customerportfolios.preferredcustomers.ionic" version="0.0.1" xmlns="http://www.w3.org/ns/widgets">
 	<name>PreferredCustomer</name>
-	<description>An awesome Ionic/Cordova app.</description>
-	<author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+	<description>An Application for Preferred Customers Only</description>
+	<author email="mike@clearcode.info" href="http://clearcode.info/">ClearCode Partners</author>
 	<content src="index.html"/>
 	<access origin="*"/>
 	<allow-navigation href="http://ionic.local/*"/>
