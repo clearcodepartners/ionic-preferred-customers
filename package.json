@@ -1,7 +1,7 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "preferred-customers-ionic",
+  "author": "ClearCode Partners, L.L.C.",
+  "homepage": "http://clearcode.info/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
