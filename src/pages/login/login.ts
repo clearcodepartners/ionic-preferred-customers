@@ -1,38 +1,40 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
-import {ApiService} from "../../app/api.service";
+import {Component} from "@angular/core";
+import {ModalController, NavController} from "ionic-angular";
 import {TermsPage} from "../terms/terms";
+import {CustomerService} from "../../app/customer.service";
+import {LoginFields} from "../../app/LoginFields.interface";
+import {LoggerService} from "../../app/logger.service";
+import {RegisterPage} from "../register/register";
 
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+	selector: 'page-login',
+	templateUrl: 'login.html'
 })
 export class LoginPage {
 
-  model:any;
+	model: LoginFields;
 
-  constructor(
-      public navCtrl: NavController,
-      public navParams: NavParams,
-      public api: ApiService,
-      public popoverCtrl: PopoverController
-  ){
-    this.model = {};
-  }
+	constructor(public customer: CustomerService, public modalCtrl: ModalController, public log: LoggerService, public navCtrl: NavController) {
+		this.model = {email: ""};
+	}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+	onSubmit(e) {
+		e.preventDefault();
+		this.log.info("Logging in as: ");
+		this.log.info(this.model);
+		this.customer.login(this.model.email);
+		return false;
+	}
 
-  onSubmit(e){
-    e.preventDefault();
-    this.api.login(e, this.model.email);
-    return false;
-  }
+	showTerms(e) {
+		e.preventDefault();
+		let modal = this.modalCtrl.create(TermsPage);
+		modal.present();
+	}
 
-  showTerms(e){
-    let popover = this.popoverCtrl.create(TermsPage);
-    popover.present();
-  }
+	register(e){
+		e.preventDefault();
+		this.navCtrl.push(RegisterPage);
+	}
 }

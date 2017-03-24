@@ -1,21 +1,24 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { ApiService } from "../../app/api.service";
+import {Component} from "@angular/core";
+import {CustomerService} from "../../app/customer.service";
+import {NavController, NavParams} from "ionic-angular";
 import {EditPage} from "../edit/edit";
 
 @Component({
-  selector: 'page-card',
-  templateUrl: 'card.html'
+	selector: 'page-card',
+	templateUrl: 'card.html'
 })
 export class CardPage {
 
-  edit:EditPage;
+	constructor(public customer: CustomerService, public navCtrl: NavController, public navParams: NavParams) {}
 
-  constructor(
-      public navCtrl: NavController,
-      public api: ApiService
-  ) {
-    this.edit = api.edit_page;
-  }
+	logout(e){
+		e.preventDefault();
+		this.customer.logout();
+	}
+
+	edit(e){
+		e.preventDefault();
+		this.navCtrl.push(EditPage);
+	}
 
 }

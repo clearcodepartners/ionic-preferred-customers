@@ -1,0 +1,26 @@
+
+@mixin img-fill(){
+  display:			flex;
+  justify-content:	center;
+  align-items:		center;
+  overflow:			hidden;
+  img {
+	flex-shrink:	0;
+	min-width:		100%;
+	min-height:		100%;
+  }
+}
+
+@mixin circle-image($size){
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  position: relative;
+  
+  @include img-fill();
+  
+  img {
+	max-width:inherit !important;
+  }
+  
+}

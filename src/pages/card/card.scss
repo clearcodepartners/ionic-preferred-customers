@@ -1,3 +1,10 @@
+@import "../../includes";
 page-card {
-
+  p{
+	text-align:center;
+  }
+  qr-code {
+	display: block;
+	text-align:center;
+  }
 }
