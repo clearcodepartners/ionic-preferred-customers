@@ -1,6 +1,6 @@
 export interface Customer {
-	preferredCustomerProfileId: number;
-	customerDimId: number;
+	preferredCustomerProfileId: number | string;
+	customerDimId: number | string;
 	firstName: string | null;
 	lastName: string | null;
 	phoneNumber: string | null;

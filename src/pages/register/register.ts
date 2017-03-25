@@ -21,8 +21,8 @@ export class RegisterPage extends OnInit {
 
   ngOnInit():void {
     this.model = {
-    	preferredCustomerProfileId: null,
-	    customerDimId: null,
+    	preferredCustomerProfileId: "",
+	    customerDimId: "",
 	    firstName: "",
 	    lastName:  "",
 	    phoneNumber:  "",
@@ -35,8 +35,8 @@ export class RegisterPage extends OnInit {
 	    zipCode:  "",
 	    country:  "",
 	    profilePicture:  "",
-	    createDate: null,
-	    updateDate: null,
+	    createDate: new Date().toISOString(),
+	    updateDate: new Date().toISOString(),
 	    promoCode:  "",
     };
     this.birthdate = new Date();
