@@ -48,7 +48,9 @@
 
 		<ion-item>
 			<ion-label stacked>State</ion-label>
-			<ion-input type="text" required [(ngModel)]="model.state" #state="ngModel" name="state"></ion-input>
+			<ion-select [(ngModel)]="model.state" #state="ngModel" name="state">
+				<ion-option *ngFor="let s of customer.config.states" [value]="s.abbreviation">{{s.name}}</ion-option>
+			</ion-select>
 		</ion-item>
 
 		<ion-item>
