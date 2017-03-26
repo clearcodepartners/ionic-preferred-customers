@@ -10,9 +10,20 @@ import {CustomerService} from "../../app/customer.service";
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public customer: CustomerService ) {
-    if(customer.hasCustomer()) navCtrl.setRoot(CardPage);
-    else navCtrl.setRoot(LoginPage);
+  constructor(public navCtrl: NavController, public customer: CustomerService) {
+    console.log("Home Page Hit");
+    if(customer.hasCustomer()) this.toWelcome();
+    else this.toLogin();
+  }
+
+  toWelcome():void {
+    console.log("To Welcome Page");
+    this.navCtrl.setRoot(CardPage);
+  }
+
+  toLogin():void {
+    console.log("To Login Page")
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }

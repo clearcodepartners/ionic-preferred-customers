@@ -7,6 +7,8 @@ import {NavController, ToastController} from "ionic-angular";
 import {Config} from "./config";
 import {Customer} from "./Customer.interface";
 import {ApiService} from "./api.service";
+import {SpinnerDialog} from '@ionic-native/spinner-dialog';
+
 
 @Injectable()
 export class CustomerService {
@@ -19,7 +21,14 @@ export class CustomerService {
 	public loginPage;
 	public welcomePage;
 
-	constructor(public http: Http, public log: LoggerService, public api: ApiService, public config: Config) {
+	constructor(
+		public http: Http,
+		public log: LoggerService,
+		public api: ApiService,
+		public config: Config,
+	    private spinnerDialog: SpinnerDialog
+
+	) {
 		this.loadCustomer();
 	}
 
@@ -30,15 +39,15 @@ export class CustomerService {
 	flushCustomer() {
 		this.customer = null;
 		localStorage.removeItem(this.local_storage_name);
-		this.navCtrl.setRoot(this.loginPage);
 	}
 
-	logout() {
+	logout():void {
 		event.preventDefault();
+		this.navCtrl.setRoot(this.loginPage);
 		this.flushCustomer();
 	}
 
-	login(email) {
+	login(email): void {
 		event.preventDefault();
 
 		this.api.get({email}, ...this.config.api_locations.login)
@@ -47,6 +56,7 @@ export class CustomerService {
 					if (data == null) this.DisplayInvalid("No Customer Found");
 					else {
 						this.setCustomer(data);
+						this.spinnerDialog.hide();
 						this.navCtrl.setRoot(this.welcomePage);
 						this.log.info('Login Successful');
 					}
@@ -58,7 +68,10 @@ export class CustomerService {
 						this.config.tries++;
 						this.login(email);
 					}
-					else this.DisplayError("Error Connecting to API", err);
+					else {
+						this.spinnerDialog.hide();
+						this.DisplayError("Error Connecting to API", err);
+					}
 				},
 				() => {}
 			);
@@ -90,37 +103,48 @@ export class CustomerService {
 		toast.present();
 	}
 
-	addCustomer(customer: Customer) {
-		return this.api.put(customer, ...this.config.api_locations.add).subscribe(
+	checkEmail(email){
+		return this.api.get({email}, ...this.config.api_locations.login);
+	}
+
+	addCustomer(customer: Customer):void {
+		this.api.put(customer, ...this.config.api_locations.add).subscribe(
 			(data) => {
-				console.log("Added Customer");
-				console.log(data);
+				this.log.info("Added Customer");
+				this.spinnerDialog.hide();
 				this.navCtrl.pop();
 			},
-			(err) => { this.DisplayError("There was an error adding the customer", err); },
+			(err) => {
+				this.spinnerDialog.hide();
+				this.DisplayError("There was an error adding the customer", err);
+			},
 			() => {}
 		);
 	}
 
-	saveCustomer() {
+	saveCustomer():void {
 		this.log.info("Saving Customer");
 		this.api.put_params(this.customer, {preferredCustomerProfileId: this.customer.preferredCustomerProfileId}, ...this.config.api_locations.update)
 			.subscribe(
 				(data) => {
 					this.log.info("Saved Customer");
+					this.spinnerDialog.hide();
 					this.navCtrl.pop();
 				},
-				(err) => { this.DisplayError("There was an error editing the customer", err); },
+				(err) => {
+					this.spinnerDialog.hide();
+					this.DisplayError("There was an error editing the customer", err);
+				},
 				() => {}
 			);
 	}
 
-	updateCustomer(newCustomer: Customer) {
+	updateCustomer(newCustomer: Customer):void {
 		this.customer = newCustomer;
 		this.saveCustomer();
 	}
 
-	getCopy() {
+	getCopy():Customer {
 		return Object.assign({}, this.customer);
 	}
 

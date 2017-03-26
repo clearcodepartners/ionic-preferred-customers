@@ -16,6 +16,8 @@ import {CardPage} from "../pages/card/card";
 import {EditPage} from "../pages/edit/edit";
 import {CustomerService} from "./customer.service";
 import {RegisterPage} from "../pages/register/register";
+import {NativePageTransitions} from "@ionic-native/native-page-transitions";
+import {SpinnerDialog} from "@ionic-native/spinner-dialog";
 
 @NgModule({
 	declarations: [
@@ -48,6 +50,8 @@ import {RegisterPage} from "../pages/register/register";
 		ApiService,
 		Config,
 		CustomerService,
+		NativePageTransitions,
+		SpinnerDialog,
 		{provide: ErrorHandler, useClass: IonicErrorHandler}
 	]
 })

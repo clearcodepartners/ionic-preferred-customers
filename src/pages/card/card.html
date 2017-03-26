@@ -6,9 +6,15 @@
 
 <ion-content padding *ngIf="customer.hasCustomer()">
 
-	<p>Welcome, {{customer.customer.firstName}} {{customer.customer.lastName}}</p>
+	<div *ngIf="!flipped">
+		<p>Welcome, {{customer.customer.firstName}} {{customer.customer.lastName}}</p>
+		<button ion-button (click)="flip()" block>Flip</button>
+	</div>
 
-	<qr-code [value]="customer.customer.preferredCustomerProfileId" [size]="250" [level]="'H'"></qr-code>
+	<div *ngIf="flipped">
+		<qr-code [value]="customer.customer.preferredCustomerProfileId" [size]="250" [level]="'H'"></qr-code>
+		<button ion-button (click)="flip()" block>Flip</button>
+	</div>
 
 </ion-content>
 

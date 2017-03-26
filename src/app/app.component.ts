@@ -14,7 +14,9 @@ import {CardPage} from "../pages/card/card";
   templateUrl: 'app.html'
 })
 export class MyApp {
+
   @ViewChild('myNav') nav: NavController;
+
   rootPage = HomePage;
 
   constructor(platform: Platform,
@@ -24,6 +26,7 @@ export class MyApp {
               toastCtrl: ToastController,
               log: LoggerService
   ) {
+    log.info("App Opened");
     platform.ready().then(() => {
       log.info("Loading App");
       statusBar.styleDefault();

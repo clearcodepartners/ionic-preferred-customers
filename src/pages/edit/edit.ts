@@ -5,6 +5,8 @@ import {Camera} from "ionic-native";
 import {CustomerService} from "../../app/customer.service";
 import {LoggerService} from "../../app/logger.service";
 import {Config} from "../../app/config";
+import {SpinnerDialog} from '@ionic-native/spinner-dialog';
+
 
 @Component({
 	selector: 'page-edit',
@@ -14,7 +16,14 @@ export class EditPage extends OnInit {
 	model: any;
 	birthdate: Date;
 
-	constructor(public navCtrl: NavController, public customer: CustomerService, private _DomSanitizer: DomSanitizer, private log: LoggerService, public config: Config) {
+	constructor(
+		public navCtrl: NavController,
+		public customer: CustomerService,
+		private _DomSanitizer: DomSanitizer,
+		private log: LoggerService,
+		public config: Config,
+		private spinnerDialog: SpinnerDialog
+	) {
 		super();
 	}
 
@@ -23,17 +32,16 @@ export class EditPage extends OnInit {
 		this.birthdate = new Date(this.model.birthdate);
 	}
 
-	onCancel(e) {
+	onCancel(e):void {
 		e.preventDefault();
 		this.navCtrl.pop();
-		return false;
 	}
 
-	onSubmit(e) {
+	onSubmit(e):void {
 		e.preventDefault();
+		this.spinnerDialog.show("Updating", "Updating your Profile");
 		this.model.birthdate = this.birthdate.getTime();
 		this.customer.updateCustomer(Object.assign({}, this.model));
-		return false;
 	}
 
 	set humanDate(birthdate: string) {
